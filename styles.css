@@ -16,7 +16,9 @@
     height: 15px;
     background-color: yellow;
   }
-  
+  .highlighter {
+      background-color: #fff3b8;
+  }
   .keyboard-container {
     margin-top: 200px;
   }
