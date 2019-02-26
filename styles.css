@@ -2,7 +2,9 @@
   margin: 0;
   padding: 0;	
 }
-
+body {
+  padding-top: 50px;
+}
 #prompt-container {
   font-family: Courier New, Courier, monospace;
   font-size: 24px;
@@ -11,12 +13,13 @@
 
 #yellow-block {
   position: absolute;
-  margin-top: 6px;
   width: 18px;
   height: 20px;
   background-color: #ffc800;
   padding: 0;
-  left: 29px;
+  left: 13px;
+  top: 6px;
+  z-index: -1;
 }
 .highlighter {
     background-color: #ffc800;
@@ -54,4 +57,20 @@
     -moz-transition: all 0.2s;
     -ms-transition: all 0.2s;
     -o-transition: all 0.2s;
+}
+#sentence {
+  display: flex;
+  justify-content: center;
+}
+#flex-container {
+  position: relative;
+}
+.glyphicon {
+  font-size: 1.6em;
+}
+.glyphicon-thumbs-down::before {
+  color: red;
+}
+.glyphicon-thumbs-up::before {
+  color: green;
 }

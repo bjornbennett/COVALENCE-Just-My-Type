@@ -64,7 +64,7 @@ doc.ready(function(){
     let whichSentence = 0,
         letterCounter = 0,
         ybPos;
-    $('#sentence').append('<p>'+sentences[whichSentence]+'</p>');
+    $('#flex-container p').append(sentences[whichSentence]);
     $('#target-letter').html(sentences[whichSentence][letterCounter]);
     
     doc.on('keydown',function(event){
@@ -77,29 +77,36 @@ doc.ready(function(){
                 
                 //if letter is same as key pressed
                 if(sentences[whichSentence][letterCounter] == event.key){
+                    //console.log('shift', event.which);
                     letterCounter++;
                     ybPos = $('#yellow-block').position().left;
                     $('#yellow-block').css('left', ybPos + 17.375);
+                    $('#feedback').html('<span class="glyphicon glyphicon-thumbs-up"></span>');
                     
                     if(sentences[whichSentence][letterCounter] === " "){
                         $('#target-letter').html("space");
                     } else {
                         $('#target-letter').html(sentences[whichSentence][letterCounter]);
                     }
+                } else if(event.which !== 16){ // don't trigger on shift key
+                    console.log(event.which);
+                    $('#feedback').html('<span class="glyphicon glyphicon-thumbs-down"></span>');
                 }
 
             } else {
                 if(whichSentence < (sentences.length - 1) ){
                     whichSentence++;
                     letterCounter = 0;
-                    $('#sentence').html('<p>'+sentences[whichSentence]+'</p>');
-                    $('#yellow-block').css('left', 30);
+                    $('#flex-container p').html(sentences[whichSentence]);
+                    $('#yellow-block').css('left', 13);
                     $('#target-letter').html( sentences[whichSentence][letterCounter]);
+                    $('#feedback').html('');
                 } else {
                     whichSentence = 0;
                     letterCounter = 0;
-                    $('#sentence').html('<p>'+sentences[whichSentence]+'</p>');
-                    $('#yellow-block').css('left', 30);
+                    $('#flex-container p').html(sentences[whichSentence]);
+                    $('#yellow-block').css('left', 13);
+                    $('#feedback').html('');
                 }
             }
             // console.log(sentences.length, whichSentence, letterCounter, sentences[whichSentence]);
