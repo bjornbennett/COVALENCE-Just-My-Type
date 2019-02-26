@@ -65,6 +65,7 @@ doc.ready(function(){
         letterCounter = 0,
         ybPos;
     $('#sentence').append('<p>'+sentences[whichSentence]+'</p>');
+    $('#target-letter').html(sentences[whichSentence][letterCounter]);
     
     doc.on('keydown',function(event){
         // track sentence in sentences array
@@ -72,15 +73,19 @@ doc.ready(function(){
 
             //track letters in current sentence
             if(letterCounter <= (sentences[whichSentence].length) -2){
-                console.log(letterCounter, sentences[whichSentence].length, sentences[whichSentence][letterCounter]);
+                // console.log(letterCounter, sentences[whichSentence].length, sentences[whichSentence][letterCounter]);
                 
                 //if letter is same as key pressed
-                console.log(event.key);
-
                 if(sentences[whichSentence][letterCounter] == event.key){
                     letterCounter++;
                     ybPos = $('#yellow-block').position().left;
                     $('#yellow-block').css('left', ybPos + 17.375);
+                    
+                    if(sentences[whichSentence][letterCounter] === " "){
+                        $('#target-letter').html("space");
+                    } else {
+                        $('#target-letter').html(sentences[whichSentence][letterCounter]);
+                    }
                 }
 
             } else {
@@ -89,6 +94,7 @@ doc.ready(function(){
                     letterCounter = 0;
                     $('#sentence').html('<p>'+sentences[whichSentence]+'</p>');
                     $('#yellow-block').css('left', 30);
+                    $('#target-letter').html( sentences[whichSentence][letterCounter]);
                 } else {
                     whichSentence = 0;
                     letterCounter = 0;
