@@ -11,13 +11,15 @@
   
   #yellow-block {
     position: absolute;
-    margin-top: 10px;
-    width: 15px;
-    height: 15px;
-    background-color: yellow;
+    margin-top: 6px;
+    width: 18px;
+    height: 20px;
+    background-color: #ffc800;
+    padding: 0;
+    left: 29px;
   }
   .highlighter {
-      background-color: #fff3b8;
+      background-color: #ffc800;
   }
   .keyboard-container {
     margin-top: 200px;
@@ -45,4 +47,11 @@
 
   .hide-me {
       display: none;
+  }
+  .well {
+      transition: all 0.2s;
+      -webkit-transition: all 0.2s;
+      -moz-transition: all 0.2s;
+      -ms-transition: all 0.2s;
+      -o-transition: all 0.2s;
   }
