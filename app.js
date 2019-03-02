@@ -60,10 +60,25 @@ doc.ready(function(){
         }
     }
     let sentences = ['ten ate neite ate nee enet ite ate inet ent eate', 'Too ato too nOt enot one totA not anot tOO aNot', 'oat itain oat tain nate eate tea anne inant nean', 'itant eate anot eat nato inate eat anot tain eat', 'nee ene ate ite tent tiet ent ine ene ete ene ate'];
+    //let sentences = ['ten ate neite ate nee enet ite ate inet ent eate'];
+    let wordCount = 0;
+    for (let i = 0; i < sentences.length; i++) {
+        const element = sentences[i];
+        let a = element.split(' ').length;
+        wordCount += a;
+        console.log('wordcount = '+wordCount);
+    }
 
     let whichSentence = 0,
         letterCounter = 0,
-        ybPos;
+        errors = 0,
+        ybPos = 0,
+        minutes,
+        startTime,
+        finishTime,
+        totalTime,
+        errorTicker = 0;
+
     $('#flex-container p').append(sentences[whichSentence]);
     $('#target-letter').html(sentences[whichSentence][letterCounter]);
     
@@ -78,6 +93,10 @@ doc.ready(function(){
                 //if letter is same as key pressed
                 if(sentences[whichSentence][letterCounter] == event.key){
                     //console.log('shift', event.which);
+                    if(letterCounter == 0 && whichSentence == 0){
+                        startTime = new Date().getTime();
+                        console.log('start time = '+startTime);
+                    }
                     letterCounter++;
                     ybPos = $('#yellow-block').position().left;
                     $('#yellow-block').css('left', ybPos + 17.375);
@@ -89,12 +108,15 @@ doc.ready(function(){
                         $('#target-letter').html(sentences[whichSentence][letterCounter]);
                     }
                 } else if(event.which !== 16){ // don't trigger on shift key
-                    console.log(event.which);
+                    errorTicker++;
+                    console.log(errorTicker + ' errors so far.');
                     $('#feedback').html('<span class="glyphicon glyphicon-thumbs-down"></span>');
+                    errors++;
                 }
 
             } else {
                 if(whichSentence < (sentences.length - 1) ){
+                    //console.log(words);
                     whichSentence++;
                     letterCounter = 0;
                     $('#flex-container p').html(sentences[whichSentence]);
@@ -102,14 +124,51 @@ doc.ready(function(){
                     $('#target-letter').html( sentences[whichSentence][letterCounter]);
                     $('#feedback').html('');
                 } else {
-                    whichSentence = 0;
-                    letterCounter = 0;
-                    $('#flex-container p').html(sentences[whichSentence]);
-                    $('#yellow-block').css('left', 13);
-                    $('#feedback').html('');
+                    finishTime = new Date().getTime();
+                    console.log('date that time stopped = '+finishTime);
+                    totalTime = finishTime - startTime;
+                    console.log('total time in milliseconds = '+totalTime);
+                    convertToTime(totalTime);
+
+                    let wpmMin = (totalTime / 1000) / 60;
+                    let wordsPerMinute = Math.floor(wordCount / wpmMin - 2 * errors);
+                    // console.log(wordsPerMinute, wordCount, totalTime, wpmMin, errors);
+                    console.log(wordsPerMinute+' words per minute');
+                    $('#words-per-minute').html('Your speed was: <br>' + wordsPerMinute + ' words per minute!');
+                    $('#log #errors').html(errors+" errors");
+                    $('.log-container').removeClass('hide-me');
                 }
             }
-            // console.log(sentences.length, whichSentence, letterCounter, sentences[whichSentence]);
+            //console.log(sentences.length, whichSentence, letterCounter, sentences[whichSentence]);
         }
+    });    
+
+    $('#try-again').click(function(){
+        resetGame();
     });
+
+    function convertToTime(time){
+        let totalSeconds = time / 1000,
+            hours = Math.floor((totalSeconds / 60) / 60),
+            minutes = Math.floor(totalSeconds / 60),
+            seconds = Math.floor(totalSeconds % 60);
+            if( seconds.toString().length == 1){
+                seconds = '0' + seconds;
+            }
+            if( minutes.toString().length == 1){
+                minutes = '0' + minutes;
+            }
+        console.log('Time taken to complete is: '+hours+':'+minutes+':'+seconds+'. Total seconds was: '+totalSeconds);
+        $('#log #timer').html('Time taken to complete:<br><span>'+hours+':'+minutes+':'+seconds+'</span>'); // get seconds, round to nearest whole number
+    }
+    function resetGame(){
+        whichSentence = 0;
+        letterCounter = 0;
+        errors = 0;
+        $('#flex-container p').html(sentences[whichSentence]);
+        $('#yellow-block').css('left', 13);
+        $('.log-container').addClass('hide-me');
+        $('#target-letter').html(sentences[whichSentence][letterCounter]);
+        $('#words-per-minute, #errors, #timer, #feedback').html('');
+    }
 });

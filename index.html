@@ -20,8 +20,8 @@
 					<div class="row col-xs-12" id="yellow-block"></div>
 				</div>
 			</div>
-			<div class="row col-lg-12 text-center" id="feedback"></div>
 			<div class="row col-lg-12 text-center" id="target-letter"></div>
+			<div class="row col-lg-12 text-center" id="feedback"></div>
 		</div>
 		<div class="text-center keyboard-container" id="keyboard-upper-container">
 			<div class="row col-lg-12 keys-row">
@@ -144,6 +144,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="app.js"></script>
 
-    <div id="log"></div>
+		<div class="log-container hide-me">
+			<div id="log">
+				<div id="timer"></div>
+				<div id="errors"></div>
+				<div id="words-per-minute"></div>
+				<button id="try-again">Want to try again??</button>
+			</div>
+		</div>
 </body>
 </html>
