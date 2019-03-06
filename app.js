@@ -61,6 +61,7 @@ doc.ready(function(){
     }
     let sentences = ['ten ate neite ate nee enet ite ate inet ent eate', 'Too ato too nOt enot one totA not anot tOO aNot', 'oat itain oat tain nate eate tea anne inant nean', 'itant eate anot eat nato inate eat anot tain eat', 'nee ene ate ite tent tiet ent ine ene ete ene ate'];
     //let sentences = ['ten ate neite ate nee enet ite ate inet ent eate'];
+    // let sentences = ["Several years ago, I was often out on business.", "At all of my stops, I would seek a meeting place on weekends","off my own bat, to share the Lords words and pray.","But after some of the meetings, the church leaders","which denomination do you belong to?","What are the doctrines of your church?"];
     let wordCount = 0;
     for (let i = 0; i < sentences.length; i++) {
         const element = sentences[i];
@@ -165,6 +166,7 @@ doc.ready(function(){
         whichSentence = 0;
         letterCounter = 0;
         errors = 0;
+        errorTicker = 0;
         $('#flex-container p').html(sentences[whichSentence]);
         $('#yellow-block').css('left', 13);
         $('.log-container').addClass('hide-me');
